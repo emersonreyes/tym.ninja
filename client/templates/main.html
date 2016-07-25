@@ -1,0 +1,16 @@
+<template name="applicationsLayout">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tym.ninja</title>
+  </head>
+  <body data-spy="scroll" data-target="#navbar-example">
+    {{> yield "navbar"}}
+    <div class="container-fluid">
+      {{> yield "main"}}
+      {{> yield "footer"}}
+    </div>
+  </body>
+</template>
+
+

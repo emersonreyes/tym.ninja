@@ -1,0 +1,9 @@
+/* CSS declarations go here */
+body {
+  position: relative;
+
+}
+
+#home, #howto, #blah {
+	padding-top: 60px;
+}
