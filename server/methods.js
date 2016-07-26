@@ -1,20 +1,27 @@
 // Meteor.userId(), to get user id
-Meteor.methods({
-	addProject(teamInfo) {
-		check(teamInfo, Array);
 
-		Projects.insert({
-			project: teamInfo[0],
-			teamName: teamInfo[1],
-			memberOne: Meteor.userId(),
-			memberTwo: teamInfo[2],
-			memberThree: teamInfo[3],
-			memberFour: teamInfo[4],
-			memberFive: teamInfo[5],
-			memberSix: teamInfo[6],
-			memberSeven: teamInfo[7],
-			memberEight: teamInfo[8],
-			memberNine: teamInfo[9],
-		});
+Meteor.methods({
+	addProject(projectSelected, teamName, team) {
+		check(projectSelected, String);
+		check(teamName, String);
+		check(team, Array);
+
+		if (Meteor.userId()) {
+			for (let i = 0; i < team.length; i++) {
+				Projects.insert({
+					memberEmail: team[i],
+					projects: [
+						{
+							teamName: teamName,
+							projectName: projectSelected, 
+							createdOn: new Date(),
+						},
+					],
+				});
+			}
+		}
+		else {
+			return false;
+		}
 	},
 })

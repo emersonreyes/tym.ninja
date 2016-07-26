@@ -5,11 +5,14 @@
 			<h1>Projects Page</h1>
 		</div>
 		<div class="col-xs-12">
-			<ul>
-				<li><a href="#" id="open-modal">Start a Project</a></li>
-				<li><a href="#">Open Projects</a></li>
-				<li>Search for Projects</li>
-			</ul>
+			<p><a href="#" id="open-modal">Start a Project</a></p>
+			<p>Open Projects</p>
+				<ul>
+					{{#each project}}
+					<li><a href="#">{{teamName}}</a></li>
+					{{/each}}
+				</ul>
+			<p><a href="#">Search for Projects</a></p>
 		</div>
 	</div>
 </template>
