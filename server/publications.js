@@ -26,9 +26,9 @@ Meteor.publish("getProjects", function(email) {
   check(email, String);
 
   var data = [
-    Projects.find({ "memberEmail": email }, {
+    Projects.find({"memberEmail": email}, {
       fields: {
-        "projects": 1,
+        "memberEmail": 1,
       }
     })
   ]; 

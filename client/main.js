@@ -35,13 +35,30 @@ Template.modal_add_project.events({
 		const memberEight = event.target.memberEight.value;
 		const memberNine = event.target.memberNine.value;
 
-		const team = [memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight, memberNine]
+		// array of emails and empty strings
+		const team = [memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight, memberNine];
 
-		if (Meteor.user()) {
-			Meteor.call("addProject", projectSelected, teamName, team);
+		const updatedTeam = [];
+
+		for (let i = 0; i < team.length; i++) {
+			if (team[i] !== "") {
+				updatedTeam.push(team[i]);	
+			}
 		}
-		else {
-			return false;
+
+		for (let i = 0; i < updatedTeam.length; i++) {
+			let email = updatedTeam[i];
+
+			Meteor.subscribe("getProjects", email, function() {
+				let array = Projects.find({ memberEmail: email }).fetch();
+
+				if (!array[0]) {
+					Meteor.call("newProject", projectSelected, teamName, email);
+				}
+				else {
+					Meteor.call("addProject", projectSelected, teamName, email);
+				}
+			});	
 		}
 	},
 });
@@ -61,15 +78,6 @@ Template.projects_page.helpers({
 			else {
 				return undefined;
 			}
-
-			/*
-			Meteor.subscribe("getProjects", email, function() {
-				var array = Projects.find().fetch();
-				var object = array[0];
-				//return object.projects;
-				//console.log(object.projects);
-			});
-			*/
 		}
 	},	
 });
