@@ -38,6 +38,7 @@ Template.modal_add_project.events({
 		// array of emails and empty strings
 		const team = [memberOne, memberTwo, memberThree, memberFour, memberFive, memberSix, memberSeven, memberEight, memberNine];
 
+
 		const updatedTeam = [];
 
 		for (let i = 0; i < team.length; i++) {
@@ -45,21 +46,53 @@ Template.modal_add_project.events({
 				updatedTeam.push(team[i]);	
 			}
 		}
+/*
+		Meteor.subscribe("getProjects", updatedTeam[i], function() {
+			for (let i = 0; i < updatedTeam.length; i++) {
+				//let email = updatedTeam[i];
 
-		for (let i = 0; i < updatedTeam.length; i++) {
-			let email = updatedTeam[i];
-
-			Meteor.subscribe("getProjects", email, function() {
-				let array = Projects.find({ memberEmail: email }).fetch();
-
+				let array = Projects.find({ memberEmail: updatedTeam[i] }).fetch();
+				console.log(array);
+				
 				if (!array[0]) {
-					Meteor.call("newProject", projectSelected, teamName, email);
+					Meteor.call("newProject", projectSelected, teamName, updatedTeam[i]);
 				}
 				else {
-					Meteor.call("addProject", projectSelected, teamName, email);
+					Meteor.call("addProject", projectSelected, teamName, updatedTeam[i]);
+				}		
+			}
+		});	
+*/
+		Meteor.subscribe("x", function() {
+			//let xyz = [];
+			for (let i = 0; i < updatedTeam.length; i++) {
+				
+				let array = Projects.findOne({ memberEmail: updatedTeam[i] });
+				if (array !== undefined) {
+					//xyz.push(array);
+					Meteor.call("addProject", projectSelected, teamName, updatedTeam[i]);
 				}
-			});	
-		}
+				else {
+					Meteor.call("newProject", projectSelected, teamName, updatedTeam[i]);
+				}
+
+				
+				/*
+				console.log(array);
+				
+				if (!array[0]) {
+					Meteor.call("newProject", projectSelected, teamName, updatedTeam[i]);
+				}
+				else {
+					Meteor.call("addProject", projectSelected, teamName, updatedTeam[i]);
+				}		
+				*/
+			}
+			//console.log(xyz);
+
+		});	
+		//event.preventDefault();
+
 	},
 });
 

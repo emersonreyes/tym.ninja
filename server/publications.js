@@ -1,13 +1,14 @@
 // this.userId, to get user id
 
-/*
-Meteor.publish("adminAddGames", function() {
+/* projects page */
+Meteor.publish("getProjects", function(email) {
+  check(email, String);
+
   var data = [
-    Games.find({}, {
+    Projects.find({"memberEmail": email}, {
       fields: {
-        "name": 1,
-        "createdOn": 1,
-        "releaseDate": 1,
+        "memberEmail": 1,
+        "projects": 1,
       }
     })
   ]; 
@@ -18,17 +19,16 @@ Meteor.publish("adminAddGames", function() {
 
   return this.ready();
 });
-*/
-
+/* end */
 
 /* projects page */
-Meteor.publish("getProjects", function(email) {
-  check(email, String);
+Meteor.publish("x", function() {
 
   var data = [
-    Projects.find({"memberEmail": email}, {
+    Projects.find({}, {
       fields: {
         "memberEmail": 1,
+        "projects": 1,
       }
     })
   ]; 
